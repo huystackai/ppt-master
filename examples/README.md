@@ -31,11 +31,11 @@ Or open any `svg_final/*.svg` directly in a browser / VS Code.
 
 ## Contributing
 
-New examples need (1) the standard structure above and (2) an entry in [`examples.json`](./examples.json) (`projects[]` array + bumped `stats`). SVGs should pass `python3 skills/ppt-master/scripts/svg_quality_checker.py`.
+New examples need (1) the standard structure above and (2) an entry in [`examples.json`](./examples.json) (`projects[]` array + bumped `stats`). SVGs should pass `python3 scripts/svg_quality_checker.py`.
 
 ## Related
 
 - [Quick Start](../README.md)
-- [Workflow](../skills/ppt-master/SKILL.md)
-- [Chart Templates](../skills/ppt-master/templates/charts/)
-- [Icon Library](../skills/ppt-master/templates/icons/)
+- [Workflow](../SKILL.md)
+- [Chart Templates](../templates/charts/)
+- [Icon Library](../templates/icons/)

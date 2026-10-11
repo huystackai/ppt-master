@@ -27,6 +27,7 @@ $RECYCLE.BIN/
 # VSCode
 .vscode/
 .claude/
+.codex/
 .spec-workflow/
 !.vscode/settings.json
 !.vscode/tasks.json
@@ -127,6 +128,8 @@ __pycache__/
 .Python
 env/
 venv/
+.venv/
+.venv-*/
 ENV/
 build/
 develop-eggs/
@@ -159,8 +162,16 @@ yarn.lock
 
 # Environment variables
 .env
-.env.local
-.env.*.local
+.env.*
+!.env.example
+
+# Private authentication files
+credentials*.json
+service-account*.json
+secrets*.json
+*.pem
+*.p12
+*.pfx
 
 # Database files
 *.db

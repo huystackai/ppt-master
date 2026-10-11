@@ -16,25 +16,27 @@ The short path to your first deck, how to use everything around it — templates
 
 **Optional.** By default PPT Master uses **free design** — you don't need a template, and you can skip to the next section. Reach for one only when a deck must reuse a fixed layout set or brand identity.
 
-**To reuse an existing PowerPoint, you must explicitly run the create-template flow — don't just hand over a `.pptx` and expect the AI to handle it.** The AI defaults to free design and won't switch into the template flow on its own; without an explicit trigger, generation easily goes off the rails. First turn that `.pptx` into a PPT Master template via create-template:
+**To follow a sample, drag a PPTX, PDF, SVG, or slide screenshot into your agent's chat and say “use this as the design reference.”** Attach your content separately or explain which attachment supplies the content. The agent prepares the reference, extracts its visual rules, and follows them in the new editable deck. Times New Roman remains the default unless you ask to preserve the sample's font or choose another font.
+
+For a **reusable template library**, explicitly request template creation:
 
 ```
-You: Replicate this as a template via /create-template: projects/brand/our_deck.pptx
+You: Replicate this as a reusable template via /create-template: projects/brand/our_deck.pptx
 ```
 
-That runs `pptx_template_import.py` and rebuilds the file into a reusable bundle — layout SVGs + `design_spec.md` + extracted theme colors, fonts, and images. That bundle is what you point to at generation time.
+That runs `pptx_template_import.py` and rebuilds the file into a reusable bundle — layout SVGs + `design_spec.md` + extracted theme colors, fonts, and images. See [Uploaded Slide References](../workflows/use-slide-reference.md) for one-off samples.
 
 A created template lives in one of two places:
 
 | Location | Path | Notes |
 |---|---|---|
-| **Registered in the skill library** | `skills/ppt-master/templates/layouts/<id>/` | Global, reusable across every project; run `register_template.py` so it shows up when you ask "what templates are available?" |
+| **Registered in the skill library** | `templates/layouts/<id>/` | Global, reusable across every project; run `register_template.py` so it shows up when you ask "what templates are available?" |
 | **Inside a project** | `projects/<project>/templates/` | Project-local; works by path, no registration needed |
 
 Either way, you invoke it during generation by giving its **directory path** in chat — the workflow triggers on an explicit path only, never on a bare template name:
 
 ```
-You: Make a deck from sources/report.pdf with template skills/ppt-master/templates/layouts/academic_defense/
+You: Make a deck from sources/report.pdf with template templates/layouts/academic_defense/
 ```
 
 Full guide → [Templates Guide](./templates-guide.md)
@@ -43,9 +45,9 @@ Full guide → [Templates Guide](./templates-guide.md)
 
 ## Generate your first deck
 
-The whole loop is three steps. Install first — you only need Python; see [Quick Start](../README.md#quick-start).
+Copy the complete `ppt-master` folder into your agent's skills directory with Python 3.10+ available; see [Install](../README.md#install). On first use, the agent prepares the Python runtime automatically. The whole loop is three steps.
 
-1. **Drop your source material** into `projects/` — a PDF, DOCX, Markdown file, a URL, or just text you'll paste.
+1. **Attach your source material** in chat or place it in your workspace — a PDF, DOCX, Markdown file, a URL, or just text you'll paste.
 2. **Tell the AI in chat** what to turn into a deck (add a template path if you set one up above; otherwise it's free design):
    ```
    You: Make a deck from projects/q3-report/sources/report.pdf
@@ -67,7 +69,7 @@ A browser preview opens at `http://localhost:5050` while the deck is being gener
 
 PPT Master was chat-only by design; visual editing was folded in after enough users asked for it (built on [@WodenJay](https://github.com/WodenJay)'s [PR #85](https://github.com/hugohe3/ppt-master/pull/85)).
 
-Full guide → [Live Preview Workflow](../skills/ppt-master/workflows/live-preview.md)
+Full guide → [Live Preview Workflow](../workflows/live-preview.md)
 
 ---
 
@@ -75,7 +77,7 @@ Full guide → [Live Preview Workflow](../skills/ppt-master/workflows/live-previ
 
 Exported decks ship **page transitions** and **per-element entrance animations** as real OOXML — not embedded video. By default, elements cascade in on slide entry with no setup, and the deck plays natively in PowerPoint and Keynote with no extra tooling. Reach for customization only when you want a specific order, effect, or timing.
 
-Full guide → [Animations & Transitions](../skills/ppt-master/references/animations.md)
+Full guide → [Animations & Transitions](../references/animations.md)
 
 ---
 
@@ -108,7 +110,7 @@ The [FAQ](./faq.md) is the living troubleshooting reference — continuously upd
 
 | Situation | First thing to try |
 |---|---|
-| The AI drifts or forgets a step | Ask it to re-read `skills/ppt-master/SKILL.md`. |
+| The AI drifts or forgets a step | Ask it to re-read `SKILL.md`. |
 | Visual quality disappoints | Switch to a large-context Claude model + `gpt-image-2` — the harness sets the floor, the model sets the ceiling. |
 | Text overflows or elements overlap | Re-run that page, or fix it in live preview; see the [FAQ](./faq.md). |
 | No image-generation API key | Zero-config web search still works as a fallback; see the [FAQ](./faq.md). |

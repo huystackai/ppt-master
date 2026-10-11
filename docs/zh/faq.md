@@ -53,7 +53,7 @@ PPT Master 可以在任何能读取文件和执行命令的 AI 编程代理中�
 如果你希望按整段编辑正文，重新导出时加上 `--merge-paragraphs`：
 
 ```bash
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project_path> --merge-paragraphs
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project_path> --merge-paragraphs
 ```
 
 可合并的段落块（同 x、dy 围绕同一行距聚集、段间允许更大间距）会合并成一个可编辑的文本框，内部为多个 `<a:p>`，并精确保留行距。**拉伸框时文字会在框内自动重排**。
@@ -87,11 +87,11 @@ PPT Master 本身免费开源，唯一的成本来自你自己的 AI 模型用�
 可以。页间转场（默认 `fade` 0.4s）和页内元素入场动画（默认 `auto` 效果 + `after-previous` 自动级联，根据每个 group 的 SVG id 自动映射效果——图片类 id 在视觉池中循环以产生 deck 内变化）都通过 `svg_to_pptx.py` 的参数控制——`-t/--transition` 控制页级，`-a/--animation` 控制元素级。常用一行命令：
 
 ```bash
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project> -t push       # 换转场效果
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project> -t none       # 关闭转场
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project> -a none       # 关闭页内动画
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project> --animation fade        # 改用单一效果（仍是默认级联）
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project> --animation-trigger on-click   # 改为单击触发，演讲者控制节奏
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project> -t push       # 换转场效果
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project> -t none       # 关闭转场
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project> -a none       # 关闭页内动画
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project> --animation fade        # 改用单一效果（仍是默认级联）
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project> --animation-trigger on-click   # 改为单击触发，演讲者控制节奏
 ```
 
 `on-click` 适合现场演示。通过 `--recorded-narration` 做旁白/视频导出时会拒绝它，因为 PPT Master 只写页面级计时，不生成对象级点击计时；带旁白的 deck 请使用 `after-previous` 或 `with-previous`。
@@ -119,7 +119,6 @@ python3 skills/ppt-master/scripts/svg_to_pptx.py <project> --animation-trigger o
 
 **harness 决定工作流上限，model 决定质量上限。** 如果 agent 能力不达预期，请先升级模型，再来评价 harness。
 
-> **没有 Claude 渠道？** 本项目赞助商 [PackyCode](https://www.packyapi.com/register?aff=ppt-master) 提供 Claude 及其他主流模型的按量付费接入——无需订阅，无需境外信用卡，支持国内支付，开箱即用。充值时填写优惠码 **`ppt-master`** 享 9 折。
 
 ## Q: 文字超出边框 / 元素错位怎么办？
 
@@ -180,4 +179,4 @@ AI 代理会自动完成后续工作 — 分析截图、构建布局定义、注
 
 ---
 
-> 更多问题可先查看 [skills/ppt-master/SKILL.md](../../skills/ppt-master/SKILL.md) 与 [AGENTS.md](../../AGENTS.md)
+> 更多问题可先查看 [SKILL.md](../../SKILL.md) 与 [AGENTS.md](../../AGENTS.md)

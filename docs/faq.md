@@ -53,7 +53,7 @@ By default yes — every visual line of body text becomes its own PowerPoint tex
 If you'd rather edit body text as whole paragraphs, re-export with `--merge-paragraphs`:
 
 ```bash
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project_path> --merge-paragraphs
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project_path> --merge-paragraphs
 ```
 
 Mergeable paragraph blocks (same x, dy clustered around one line-height, optional larger gap for paragraph breaks) collapse into one editable text frame with multiple `<a:p>` and precise line-spacing. Resizing the box reflows text inside it.
@@ -87,16 +87,16 @@ If your workflow specifically requires Excel-driven data editing, manually creat
 Yes. Page transitions (`fade` 0.4s by default) and per-element entrance animations (`auto` effect with `after-previous` cascade by default — effect mapped from each group's SVG id, with image-like ids cycling a visual pool for variation) are both controlled by `svg_to_pptx.py` flags — `-t/--transition` for page-level and `-a/--animation` for element-level. Common one-liners:
 
 ```bash
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project> -t push       # different transition
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project> -t none       # disable transitions
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project> -a none       # disable per-element animation
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project> --animation fade        # use a single effect instead of mixed
-python3 skills/ppt-master/scripts/svg_to_pptx.py <project> --animation-trigger on-click   # presenter-paced reveals
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project> -t push       # different transition
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project> -t none       # disable transitions
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project> -a none       # disable per-element animation
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project> --animation fade        # use a single effect instead of mixed
+python3 "${SKILL_DIR}/scripts/svg_to_pptx.py" <project> --animation-trigger on-click   # presenter-paced reveals
 ```
 
 `on-click` is for live presentations. Narrated/video export via `--recorded-narration` rejects it because PPT Master writes page timings, not object-level click timings; use `after-previous` or `with-previous` for narrated decks.
 
-Full effect list, anchor logic (top-level `<g id="...">`), fallback behavior, and limitations: see [Animations & Transitions](../skills/ppt-master/references/animations.md).
+Full effect list, anchor logic (top-level `<g id="...">`), fallback behavior, and limitations: see [Animations & Transitions](../references/animations.md).
 
 ## Q: Which AI model works best?
 
@@ -117,7 +117,6 @@ No. PPT Master is a **harness**, not a complete agent — `harness + model = age
 
 If the results you've seen look mediocre, check your setup before concluding anything about the tool: What model? What context size? Was image generation enabled? PPT Master + Claude Opus at 1M context + `gpt-image-2` images is a genuinely different experience from PPT Master + a small open-source model with no image API configured.
 
-> **No Claude access?** Project sponsor [PackyCode](https://www.packyapi.com/register?aff=ppt-master) provides pay-as-you-go access to Claude and other models — no subscription, no overseas card required. Use promo code **`ppt-master`** for 10% off.
 
 ## Q: Text overflows or elements are misaligned — what can I do?
 
@@ -178,4 +177,4 @@ The AI agent will handle the rest — analyzing your screenshots, building the l
 
 ---
 
-> For more questions, see [SKILL.md](../skills/ppt-master/SKILL.md) and [AGENTS.md](../AGENTS.md)
+> For more questions, see [SKILL.md](../SKILL.md) and [AGENTS.md](../AGENTS.md)

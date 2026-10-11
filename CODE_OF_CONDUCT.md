@@ -43,9 +43,7 @@ This Code of Conduct applies in all project spaces, including but not limited to
 
 ## Reporting
 
-If you experience or witness behavior that violates this Code of Conduct, please report it to:
-
-**heyug3@gmail.com**
+If you experience or witness behavior that violates this Code of Conduct, report it privately to the current repository maintainers using a private contact channel they publish.
 
 Please include, when possible:
 

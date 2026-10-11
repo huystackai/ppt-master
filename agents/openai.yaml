@@ -1,0 +1,4 @@
+interface:
+  display_name: "PPT Master"
+  short_description: "Editable PowerPoint with templates, images and narration"
+  default_prompt: "Use $ppt-master to create an editable presentation from my content or attached slide sample."

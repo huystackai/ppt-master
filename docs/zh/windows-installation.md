@@ -12,7 +12,6 @@ Python 是唯一的硬性要求。
 
 2. **⚠️ 关键步骤：安装时务必勾选 "Add python.exe to PATH"** — 这是 Windows 上最常见的安装失误，不勾的话后面每一步都会出问题。
 
-   ![Python 安装器 — 勾选 Add to PATH](../assets/windows-python-path.png)
 
 3. 安装完成后，打开 **PowerShell**（在开始菜单搜索「PowerShell」）并验证：
 

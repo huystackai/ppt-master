@@ -6,7 +6,7 @@
 
 There are dozens of AI presentation tools. This page explains what PPT Master does differently — and where it's not the right choice.
 
-I'm [Hugo He](https://www.hehugo.com/), an investment & finance professional who builds presentations every day. PPT Master is an open-source tool I've spent extensive time refining — because I'm its most demanding user.
+I'm [Hugo He](https://github.com/hugohe3/ppt-master), an investment & finance professional who builds presentations every day. PPT Master is an open-source tool I've spent extensive time refining — because I'm its most demanding user.
 
 ## 1. Real PowerPoint Output — Not Images, Not Web Screenshots
 

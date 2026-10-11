@@ -16,25 +16,27 @@
 
 **可选。** 默认走**自由设计**——不需要模板,可以直接跳到下一节。只有当 deck 必须复用一套固定版式或品牌时,才需要模板。
 
-**想让 deck 复用某份现成 PPT,必须显式走 create-template 流程——别直接丢个 `.pptx` 指望 AI 自动处理。** AI 默认走自由设计,不会主动切进创建模板的流程;不显式启动它,生成过程就容易错乱。先用 create-template 把那份 `.pptx` 复刻成 PPT Master 模板:
+**想按样稿制作新 deck，可以直接将 PPTX、PDF、SVG 或幻灯片截图拖入 Agent 对话，并说明“按这个样稿制作”。** 内容资料另行提供，或说明哪个附件是内容、哪个是样稿。Agent 会准备参考文件、提取视觉规则，并据此制作可编辑的新 deck。默认正文仍用 Times New Roman；你也可以要求保留样稿字体或指定其他字体。
+
+需要建立**可反复使用的模板库**时，显式请求创建模板：
 
 ```
-你：用 /create-template 把这个复刻成模板：projects/brand/our_deck.pptx
+你：用 /create-template 把这个复刻成可复用模板：projects/brand/our_deck.pptx
 ```
 
-这会跑 `pptx_template_import.py`,把文件重建成可复用的资产包——版式 SVG + `design_spec.md` + 抽取出的主题色、字体、图片。生成时引用的就是这个资产包。
+这会跑 `pptx_template_import.py`，生成版式 SVG、`design_spec.md`，并提取主题色、字体和图片。一次性样稿的详细流程见[参考幻灯片工作流](../../workflows/use-slide-reference.md)。
 
 复刻出的模板可以放在两个位置之一:
 
 | 位置 | 路径 | 说明 |
 |---|---|---|
-| **注册进 skill 库** | `skills/ppt-master/templates/layouts/<id>/` | 全局,所有项目可复用;跑 `register_template.py` 后,问"有哪些模板"时会被列出来 |
+| **注册进 skill 库** | `templates/layouts/<id>/` | 全局,所有项目可复用;跑 `register_template.py` 后,问"有哪些模板"时会被列出来 |
 | **放进项目里** | `projects/<project>/templates/` | 项目本地;给路径即用,无需注册 |
 
 无论放哪,生成时都靠在对话里给出它的**目录路径**来引用——工作流只认显式路径,绝不认裸模板名:
 
 ```
-你：用 sources/report.pdf 做 deck,模板用 skills/ppt-master/templates/layouts/academic_defense/
+你：用 sources/report.pdf 做 deck,模板用 templates/layouts/academic_defense/
 ```
 
 完整说明 → [模板指南](./templates-guide.md)
@@ -43,9 +45,9 @@
 
 ## 做出第一份 deck
 
-整个流程就三步。先装好环境——只需要 Python,见 [快速开始](../../README_CN.md#快速开始)。
+将完整 `ppt-master` 文件夹放入 Agent 的 skills 目录，并确保已安装 Python 3.10+，详见[安装](../../README_CN.md#安装)。首次使用时由 Agent 自动准备 Python 环境。整个流程就三步。
 
-1. **把源材料放进** `projects/` —— PDF、DOCX、Markdown、一个网址,或直接要粘贴的文字。
+1. **在对话中上传源材料**，或放入当前工作目录 —— PDF、DOCX、Markdown、一个网址,或直接要粘贴的文字。
 2. **在对话里告诉 AI** 要把什么做成 deck(如果上面准备了模板,把它的路径一起给;否则就是自由设计):
    ```
    你：用 projects/q3-report/sources/report.pdf 做一份 PPT
@@ -67,7 +69,7 @@
 
 PPT Master 最初是纯对话设计;可视化编辑是在很多用户提出后融入的(建立在 [@WodenJay](https://github.com/WodenJay) 的 [PR #85](https://github.com/hugohe3/ppt-master/pull/85) 之上)。
 
-完整说明 → [实时预览工作流](../../skills/ppt-master/workflows/live-preview.md)
+完整说明 → [实时预览工作流](../../workflows/live-preview.md)
 
 ---
 
@@ -108,7 +110,7 @@ PPT Master 最初是纯对话设计;可视化编辑是在很多用户提出后�
 
 | 情况 | 先试这个 |
 |---|---|
-| AI 跑偏或漏了步骤 | 让它重新读 `skills/ppt-master/SKILL.md`。 |
+| AI 跑偏或漏了步骤 | 让它重新读 `SKILL.md`。 |
 | 视觉质量不理想 | 换成大上下文 Claude 模型 + `gpt-image-2`——harness 决定下限,模型决定上限。 |
 | 文字溢出或元素重叠 | 重跑那一页,或用实时预览修;详见 [FAQ](./faq.md)。 |
 | 没有生图 API key | 零配置的网络图片搜索仍可作为兜底;见 [FAQ](./faq.md)。 |
